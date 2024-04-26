@@ -6,8 +6,13 @@ not portable - they should point to where the install is actually physically loc
 
 This script can patch:
 
-- sysconfigdata for linux and similar systems
-- pkgconfig files for linux and similar systems
+- sysconfigdata
+- pkgconfig files
+
+The script seems to work on these (more information needed):
+
+- linux
+- macos
 
 Several more files contain system specific variables that might need to be updated,
 but that's not implemented yet.

@@ -24,6 +24,7 @@ a python installation from indygreg's python builds.
 
 import argparse
 import ast
+from dataclasses import dataclass
 import logging
 import os
 import shutil
@@ -42,8 +43,17 @@ SYSCONFIG_HEADER = """\
 # install path patched by sysconfigpatcher
 """
 
+
+@dataclass
+class WordReplace:
+    """Replace word with another"""
+    word: str
+    to: str
+
+
 DEFAULT_VARIABLE_UPDATES = {
-    "CC": "cc -pthread",
+    "CC": WordReplace("clang", "cc"),
+    "CXX": WordReplace("clang++", "c++"),
     "AR": "ar",
 }
 
@@ -73,7 +83,7 @@ def select_child(ast_obj, type_):
 
 def patch_sysconfig_ast(obj, real_prefix, variable_updates=None):
     """
-    variable_updates (dict | None): Extra variables that should be updated
+    variable_updates (dict[str, str | WordReplace] | None): Extra variables that should be updated
     return True if any changes were done
     """
     did_update = False
@@ -113,7 +123,11 @@ def patch_sysconfig_ast(obj, real_prefix, variable_updates=None):
         new_value = None
 
         if key in variable_updates:
-            new_value = variable_updates[key]
+            updater = variable_updates[key]
+            if isinstance(updater, WordReplace):
+                new_value = re.sub(r"(^|\s)" + re.escape(updater.word) + r"(?=\s|$)", updater.to, value, flags=re.ASCII)
+            else:
+                new_value = updater
             if value == new_value:
                 new_value = None
         elif value.startswith(OLD_PREFIX):

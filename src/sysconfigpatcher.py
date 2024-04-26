@@ -60,6 +60,13 @@ def update_prefix(value: str, real_prefix: str):
     return value
 
 
+def sync_file(fn):
+    if hasattr(os, 'fdatasync'):
+        os.fdatasync(fn)
+    elif hasattr(os, 'fsync'):
+        os.fsync(fn)
+
+
 def select_child(ast_obj, type_):
     return next((elt for elt in ast_obj.body if isinstance(elt, type_)), None)
 
@@ -171,7 +178,7 @@ def patch_sysconfig(path: Path, real_prefix: Path, dry_run: bool, backup_files: 
         with open(new_file, "w") as fn:
             fn.write(SYSCONFIG_HEADER)
             fn.write(ast.unparse(obj))
-            os.fdatasync(fn)
+            sync_file(fn)
         ruff_format_file(new_file)
 
         shutil.move(new_file, path)
@@ -213,7 +220,7 @@ def write_new_pkgconfig(fname: Path, real_prefix: Path, dest_path: Path):
                     did_update = True
                     _logger.debug("Updated\n  from %r\n  to %r", line.rstrip(), new_line.rstrip())
                 outfile.write(new_line)
-            os.fdatasync(outfile)
+            sync_file(outfile)
     return did_update
 
 

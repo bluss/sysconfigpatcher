@@ -36,12 +36,12 @@ sysconfigpatcher path/to/python/install
 ## How to develop
 
 ```
-rye sync
+uv sync
 
 # after you've added some tests you can run this:
-rye test -v
+uv run pytest
 
 # you can test update the mock install inside tests
 
-sysconfigpatcher -v ./tests/installs/cpython@3.12.2/
+uv run sysconfigpatcher -v ./tests/installs/cpython@3.12.2/
 ```

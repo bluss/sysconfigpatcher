@@ -54,6 +54,10 @@ class WordReplace:
 DEFAULT_VARIABLE_UPDATES = {
     "CC": WordReplace("clang", "cc"),
     "CXX": WordReplace("clang++", "c++"),
+    "BLDSHARED": WordReplace("clang", "cc"),
+    "LDSHARED": WordReplace("clang", "cc"),
+    "LDCXXSHARED": WordReplace("clang++", "c++"),
+    "LINKCC": WordReplace("clang", "cc"),
     "AR": "ar",
 }
 

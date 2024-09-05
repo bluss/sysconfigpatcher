@@ -1,4 +1,9 @@
 
+## 0.3.0
+
+- Add the following to default variables updated for compiler name (from clang to cc):
+  `BLDSHARED`, `LDSHARED`, `LDCXXSHARED`, `LINKCC`
+
 ## 0.2.0
 
 - Support macos (fix fdatasync call that was not supported)

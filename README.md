@@ -26,6 +26,16 @@ to update the location repeatedly of an install directory.
 
 This program should not be run as superuser.
 
+## How to Install
+
+Use Uv:
+
+```
+uv tool install 'git+https://github.com/bluss/sysconfigpatcher'
+```
+
+Or use other equivalent python tool to install sysconfigpatcher from git.
+
 
 ## How to use
 

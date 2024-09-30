@@ -30,7 +30,7 @@ This program should not be run as superuser.
 
 Use Uv:
 
-```
+```bash
 uv tool install 'git+https://github.com/bluss/sysconfigpatcher'
 ```
 
@@ -39,8 +39,16 @@ Or use other equivalent python tool to install sysconfigpatcher from git.
 
 ## How to use
 
-```
+```bash
 sysconfigpatcher path/to/python/install
+```
+
+For example it could be:
+
+```bash
+sysconfigpatcher ~/.local/share/uv/python/cpython-3.12.5-macos-aarch64-none
+# or
+sysconfigpatcher ~/.local/share/uv/python/cpython-3.12.5-macos-aarch64-none/bin/python3
 ```
 
 ## How to develop

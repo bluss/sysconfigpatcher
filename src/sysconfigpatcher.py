@@ -262,11 +262,18 @@ def patch_pkgconfig(pkgconfig_file, real_prefix, dry_run: bool, backup_files: bo
 
 def find_install_root(path: Path):
     """Wherever the bin directory is"""
-    if (path / "bin/python3").exists():
-        return path
-    with_install = path / "install"
-    if with_install.exists():
-        return find_install_root(with_install)
+    # we want to get the root in $ROOT/bin/python
+
+    alternatives = [path]
+    if path.name.startswith("python") and path.parent.name == "bin":
+        alternatives.append(path.parent.parent)
+
+    for candidate in alternatives:
+        if (candidate / "bin/python3").exists():
+            return candidate
+        with_install = candidate / "install"
+        if with_install.exists():
+            return find_install_root(with_install)
     return None
 
 def find_libdir(real_prefix: Path):

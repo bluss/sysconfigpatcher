@@ -1,4 +1,9 @@
 
+## 0.3.1
+
+- Accept path to bin/python or bin/python3 in addition to install root for specifying
+  python installation to patch.
+
 ## 0.3.0
 
 - Add the following to default variables updated for compiler name (from clang to cc):
